@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b1020">
+    <title>PixelFlow — Image Converter</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<div class="app-shell">
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M7 3h8l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.7"/>
+                    <path d="M15 3v5h5M8.5 14.5l2.3-2.3 2.1 2.1 1.4-1.4 2.7 2.7M9 18h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div>
+                <strong>PixelFlow</strong>
+                <span>Image Converter</span>
+            </div>
+        </div>
+        <div class="topbar-badge">
+            <span class="status-dot"></span>
+            Processamento local
+        </div>
+    </header>
+
+    <main class="content">
+        <section class="hero">
+            <div>
+                <div class="eyebrow">CONVERSÃO PROFISSIONAL DE IMAGENS</div>
+                <h1>Converta milhares de imagens.<br><em>Sem perder a organização.</em></h1>
+                <p class="hero-copy">
+                    Selecione uma pasta, escolha o formato e deixe o PixelFlow preservar sua estrutura de diretórios automaticamente.
+                </p>
+            </div>
+            <div class="hero-orbit" aria-hidden="true">
+                <div class="orbit orbit-a"></div>
+                <div class="orbit orbit-b"></div>
+                <div class="hero-icon">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v1.5A2.5 2.5 0 0 0 7.5 21h9a2.5 2.5 0 0 0 2.5-2.5V17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section class="workspace">
+            <div class="workspace-head">
+                <div>
+                    <span class="section-kicker">01</span>
+                    <div>
+                        <h2>Escolha a origem</h2>
+                        <p>A pasta será lida recursivamente.</p>
+                    </div>
+                </div>
+                <span class="format-chip">PNG <span>→</span> WEBP / AVIF</span>
+            </div>
+
+            <button id="select-folder" class="folder-picker" type="button">
+                <span class="folder-icon">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M3.5 7.5A2.5 2.5 0 0 1 6 5h4l2 2h6A2.5 2.5 0 0 1 20.5 9.5v8A2.5 2.5 0 0 1 18 20H6a2.5 2.5 0 0 1-2.5-2.5v-10Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                        <path d="M8 13h8M12 9v8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="folder-copy">
+                    <strong id="folder-title">Selecionar pasta de entrada</strong>
+                    <span id="folder-name">PNG em subpastas também será encontrado.</span>
+                </span>
+                <span class="arrow-icon">→</span>
+            </button>
+
+            <div class="configuration">
+                <div class="workspace-head compact">
+                    <div>
+                        <span class="section-kicker">02</span>
+                        <div>
+                            <h2>Defina a conversão</h2>
+                            <p>Escolha como os arquivos serão codificados.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="format-grid">
+                    <button class="format-option selected" type="button" data-format="webp">
+                        <span class="radio"><span></span></span>
+                        <span class="format-main">
+                            <strong>WebP</strong>
+                            <span>Lossless · qualidade original</span>
+                        </span>
+                        <span class="format-tag">RECOMENDADO</span>
+                    </button>
+                    <button class="format-option" type="button" data-format="avif">
+                        <span class="radio"><span></span></span>
+                        <span class="format-main">
+                            <strong>AVIF</strong>
+                            <span>Alta qualidade · excelente compressão</span>
+                        </span>
+                        <span class="format-tag muted-tag">QUALIDADE 100</span>
+                    </button>
+                </div>
+
+                <div class="destination-note">
+                    <span class="destination-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h4L13 7.5h4.5A2.5 2.5 0 0 1 20 10v7.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-10Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M8 13h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                    <div>
+                        <span>Destino automático</span>
+                        <strong>convertidas / AAAA-MM-DD_HH-MM-SS /</strong>
+                    </div>
+                </div>
+
+                <button id="convert" class="convert-button" type="button" disabled>
+                    <span>Converter imagens</span>
+                    <span class="button-arrow">↗</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="progress-panel">
+            <div class="progress-top">
+                <div>
+                    <span class="section-kicker">03</span>
+                    <div>
+                        <h2>Execução</h2>
+                        <p id="status">Aguardando seleção da pasta...</p>
+                    </div>
+                </div>
+                <div class="counter" id="counter">0 / 0</div>
+            </div>
+
+            <div class="progress-track"><div id="progress" class="progress"></div></div>
+
+            <div class="result-row">
+                <span class="result-label">SAÍDA</span>
+                <span id="output-path">—</span>
+            </div>
+            <div id="errors" class="errors" role="alert"></div>
+        </section>
+
+        <section class="trust-row">
+            <div><span class="trust-icon">✓</span><strong>Estrutura preservada</strong><span>Subpastas e nomes mantidos</span></div>
+            <div><span class="trust-icon">✓</span><strong>Sem redimensionamento</strong><span>Dimensões originais intactas</span></div>
+            <div><span class="trust-icon">✓</span><strong>Local-first</strong><span>Arquivos não ficam armazenados</span></div>
+        </section>
+    </main>
+
+    <footer>
+        <span>PixelFlow · Python + FastAPI + Pillow</span>
+        <span>Chrome ou Edge recomendado</span>
+    </footer>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>
