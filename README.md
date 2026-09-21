@@ -1,16 +1,16 @@
 # PixelFlow — Image Converter
 
-Aplicação web local para conversão recursiva de imagens PNG para WebP ou AVIF, preservando dimensões, metadados suportados e a estrutura original de diretórios.
+Aplicação web local para conversão recursiva de imagens PNG, WebP e AVIF para WebP ou AVIF, preservando metadados suportados e a estrutura original de diretórios.
 
 A interface foi construída com **HTML, CSS e JavaScript nativos**, servida por **FastAPI**. Não há Streamlit, React ou outro framework frontend pesado.
 
 ## O que faz
 
 - Seleciona uma pasta local pelo navegador.
-- Procura arquivos `.png` em todas as subpastas.
+- Procura arquivos `.png`, `.webp` e `.avif` em todas as subpastas.
 - Ignora a pasta `convertidas` para evitar reconversões.
-- Converte para WebP ou AVIF.
-- Não redimensiona as imagens.
+- Converte até 5 imagens em paralelo.
+- Oferece presets **Original** (lossless), **Compacto** (lossy) e **Mobile** (redimensiona o lado maior para 1600px).
 - Preserva ICC, EXIF e XMP quando suportados pelo encoder.
 - Cria automaticamente:
 
@@ -103,13 +103,23 @@ As dependências de teste ficam em `requirements-dev.txt`, evitando instalar fer
 
 ## Qualidade e formatos
 
-### WebP
+Reconverter WebP lossless em WebP/AVIF lossless **não** leva o arquivo de MB para KB. A compressão sem perda já extraiu a redundância; o tamanho restante é o conteúdo da imagem.
 
-A opção WebP usa codificação **lossless**, com `quality=100`, `method=6` e `exact=True`. Essa é a opção indicada quando a prioridade é preservar os pixels sem perda de qualidade.
+Para chegar em KB, use **Compacto** ou **Mobile**. Mobile reduz resolução e aplica lossy — é o único caminho realista para fotos de dezenas de megabytes.
 
-### AVIF
+### Original (lossless)
 
-A opção AVIF usa `quality=100` e `4:4:4`, priorizando alta qualidade. Entretanto, `quality=100` não deve ser interpretado como garantia de equivalência pixel-a-pixel com um PNG original. Para preservação estritamente lossless, utilize WebP Lossless.
+WebP lossless (`quality=100`, `method=4`, `exact=True`). AVIF em `quality=100` e `4:4:4`. AVIF em qualidade 100 não é garantia pixel-a-pixel; para isso use WebP + Original.
+
+`method=4` é bem mais rápido que `method=6`, com arquivos lossless um pouco maiores.
+
+### Compacto
+
+Lossy de alta qualidade, **sem** redimensionar. Bom para web quando a resolução original precisa ser mantida.
+
+### Mobile
+
+O lado maior é limitado a **1600px** (LANCZOS) e a imagem é reencodada em lossy. Este preset é o indicado para uso em celular e para sair da faixa de MB.
 
 ## Arquitetura
 
@@ -167,12 +177,8 @@ image-converter/
 A arquitetura permite adicionar posteriormente:
 
 - JPG/JPEG, TIFF, BMP e GIF como entrada.
-- Escolha de qualidade.
-- WebP lossy/lossless.
-- Processamento paralelo controlado.
+- Qualidade e lado máximo configuráveis.
 - Relatório de tamanho antes/depois.
-- Estimativa de economia de espaço.
 - Cancelamento de execução.
 - Drag & drop.
 - CLI para automação.
-- Presets de conversão.

@@ -37,7 +37,7 @@
                 <div class="eyebrow">CONVERSÃO PROFISSIONAL DE IMAGENS</div>
                 <h1>Converta milhares de imagens.<br><em>Sem perder a organização.</em></h1>
                 <p class="hero-copy">
-                    Selecione uma pasta, escolha o formato e deixe o PixelFlow preservar sua estrutura de diretórios automaticamente.
+                    Selecione uma pasta, escolha o formato e o preset. Até 5 imagens são convertidas ao mesmo tempo, preservando a estrutura de diretórios.
                 </p>
             </div>
             <div class="hero-orbit" aria-hidden="true">
@@ -60,7 +60,7 @@
                         <p>A pasta será lida recursivamente.</p>
                     </div>
                 </div>
-                <span class="format-chip">PNG <span>→</span> WEBP / AVIF</span>
+                <span class="format-chip">PNG / WEBP / AVIF <span>→</span> WEBP / AVIF</span>
             </div>
 
             <button id="select-folder" class="folder-picker" type="button">
@@ -72,7 +72,7 @@
                 </span>
                 <span class="folder-copy">
                     <strong id="folder-title">Selecionar pasta de entrada</strong>
-                    <span id="folder-name">PNG em subpastas também será encontrado.</span>
+                    <span id="folder-name">PNG, WebP e AVIF em subpastas também serão encontrados.</span>
                 </span>
                 <span class="arrow-icon">→</span>
             </button>
@@ -83,7 +83,7 @@
                         <span class="section-kicker">02</span>
                         <div>
                             <h2>Defina a conversão</h2>
-                            <p>Escolha como os arquivos serão codificados.</p>
+                            <p>Formato de saída e quanto comprimir.</p>
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                         <span class="radio"><span></span></span>
                         <span class="format-main">
                             <strong>WebP</strong>
-                            <span>Lossless · qualidade original</span>
+                            <span>Formato moderno · suporte amplo</span>
                         </span>
                         <span class="format-tag">RECOMENDADO</span>
                     </button>
@@ -101,9 +101,33 @@
                         <span class="radio"><span></span></span>
                         <span class="format-main">
                             <strong>AVIF</strong>
-                            <span>Alta qualidade · excelente compressão</span>
+                            <span>Melhor compressão · encoding mais lento</span>
                         </span>
-                        <span class="format-tag muted-tag">QUALIDADE 100</span>
+                        <span class="format-tag muted-tag">MENOR ARQUIVO</span>
+                    </button>
+                </div>
+
+                <div class="preset-grid">
+                    <button class="preset-option selected" type="button" data-preset="lossless">
+                        <span class="radio"><span></span></span>
+                        <span class="format-main">
+                            <strong>Original</strong>
+                            <span>Sem perda de pixels · mesmas dimensões</span>
+                        </span>
+                    </button>
+                    <button class="preset-option" type="button" data-preset="compact">
+                        <span class="radio"><span></span></span>
+                        <span class="format-main">
+                            <strong>Compacto</strong>
+                            <span>Lossy de alta qualidade · sem redimensionar</span>
+                        </span>
+                    </button>
+                    <button class="preset-option" type="button" data-preset="mobile">
+                        <span class="radio"><span></span></span>
+                        <span class="format-main">
+                            <strong>Mobile</strong>
+                            <span>Até 1600px no lado maior · alvo em KB</span>
+                        </span>
                     </button>
                 </div>
 
@@ -150,7 +174,7 @@
 
         <section class="trust-row">
             <div><span class="trust-icon">✓</span><strong>Estrutura preservada</strong><span>Subpastas e nomes mantidos</span></div>
-            <div><span class="trust-icon">✓</span><strong>Sem redimensionamento</strong><span>Dimensões originais intactas</span></div>
+            <div><span class="trust-icon">✓</span><strong>Até 5 em paralelo</strong><span>CPU ociosa deixa de ser o gargalo</span></div>
             <div><span class="trust-icon">✓</span><strong>Local-first</strong><span>Arquivos não ficam armazenados</span></div>
         </section>
     </main>
